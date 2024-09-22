@@ -1,0 +1,5 @@
+A set of case clauses enclosed in braces is a partial function—a function which may not be defined
+for all inputs. It is an instance of a class PartialFunction[A, B]. (A is the parameter type, B
+the return type.) That class has two methods: apply, which computes the function value from the
+matching pattern, and isDefinedAt, which returns true if the input matches at least one of the
+patterns.
