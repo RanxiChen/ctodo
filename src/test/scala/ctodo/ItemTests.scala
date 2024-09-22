@@ -1,5 +1,8 @@
 package ctodo
-import utest._
-object ItemTests extends TestSuite {
-    
+import org.scalatest.funsuite.AnyFunSuite
+
+class ItemSuite extends AnyFunSuite{
+    test("log_path"){
+        assert(true)
+    }
 }
