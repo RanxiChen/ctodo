@@ -1,3 +1,6 @@
 .vscode/
 target/
-project/target/
+!project/build.properities
+.bloop/
+.metals/
+project/
