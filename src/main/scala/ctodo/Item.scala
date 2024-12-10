@@ -1,35 +1,40 @@
 package ctodo
-object log_path{
-    val log_path:os.Path=os.pwd/"misc"
+object db_path{
+    //loaction where I store data
+    val db_path:os.Path=os.pwd/"misc"
 }
-sealed abstract trait Item
-case class todo(thing:String) extends Item
-case class done(thing:String) extends Item
+//3 kinds of task
+sealed abstract trait Task
+case class todo(thing:String) extends Task
+case class done(thing:String) extends Task
+case class open(thing:String) extends Task
 
-object Itemtoolkit{
-    def show(item:Item):String ={
+object Tasktoolkit{
+    // use 'show' to show the task to people
+    def show(item:Task):String ={
         item match {
             case todo(thing) => "[todo] " + thing
             case done(thing) => "[done] " + thing
+            case open(thing) => "[open] " + thing
         }
     }
-    def ItemcodetoString(item:Item):String = {
+    //use TaskcodetoString to convert Task item 
+    //to string,which will store in db file
+    def TaskcodetoString(item:Task):String = {
         item match {
             case todo(thing) => "!#! 0 " + thing
             case done(thing) => "!#! 1 " + thing
+            case open(thing) => "!#! 2 " + thing
         }
     }
-    def Itemdecoder(str:String):Option[Item] ={
-        if(str.substring(0,3) == "!#!"){
-            if(str(4)=='0'){
-                Some(todo(str.drop(6)))
-            }else if(str(4)=='1'){
-                Some(done(str.drop(6)))                
-            }else{
-                None
-            }
-        }else{
-            None
-        }        
+    //use TaskdecoderfromString to convert extract string
+    // in db file representing Task item
+    def TaskdecoderfromString(str:String):Option[Task] ={
+        str match {
+            case task if task.startsWith("!#! 0 ") => Some(todo(task.substring(6)))
+            case task if task.startsWith("!#! 1 ") => Some(done(task.substring(6)))
+            case task if task.startsWith("!#! 2 ") => Some(open(task.substring(6)))
+            case _ => None
+        }
     }
 }

@@ -1,3 +1,0 @@
-package ctodo
-object ctrl{
-}
