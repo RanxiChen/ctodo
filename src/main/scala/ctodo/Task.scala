@@ -1,7 +1,17 @@
 package ctodo
-object db_path{
+object db_config{
     //loaction where I store data
     val db_path:os.Path=os.pwd/"misc"
+    //I will store all of  tasks in 
+    // file named 'todo.db'
+    val db_file:os.Path={
+        if (os.exists(db_path/"todo.db")){
+            db_path/"todo.db"
+        } else {
+            os.write(db_path/"todo.db","")
+            db_path/"todo.db"
+        }
+    }
 }
 //3 kinds of task
 sealed abstract trait Task

@@ -18,4 +18,26 @@ class TaskSuite extends AnyFunSuite{
         assert(Tasktoolkit.TaskdecoderfromString("!#! 2 789") == Some(open("789")))
         assert(Tasktoolkit.TaskdecoderfromString("123")== None)
     }
+    test("does db_file exist"){
+        assert(os.exists(db_config.db_file))
+    }
+}
+class FileandTaskSuite extends AnyFunSuite{
+    test("get tasks from file"){
+        os.write.over(db_config.db_file,"!#! 0 123\n!#! 1 456\n!#! 2 789")
+        val tasks = FileandTask.getTasks()
+        assert(tasks.length == 3)
+        assert(tasks(0) == todo("123"))
+        assert(tasks(1) == done("456"))
+        assert(tasks(2) == open("789"))
+    }
+    test("write tasks to file"){
+        val tasks = Seq(todo("123"),done("456"),open("789"))
+        FileandTask.writeTasks(tasks)
+        val lines = os.read.lines(db_config.db_file)
+        assert(lines.length == 3)
+        assert(lines(0) == "!#! 0 123")
+        assert(lines(1) == "!#! 1 456")
+        assert(lines(2) == "!#! 2 789")
+    }
 }
