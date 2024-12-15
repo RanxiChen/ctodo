@@ -8,3 +8,4 @@ libraryDependencies ++= Seq(
     "com.lihaoyi"%%"os-lib"%"0.10.7",
     "org.scalatest"%%"scalatest"%"3.2.19"%"test"
 )
+

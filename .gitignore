@@ -6,3 +6,4 @@ target/
 project/
 .bsp/
 misc/todo.db
+.idea/
